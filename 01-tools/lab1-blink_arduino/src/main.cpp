@@ -15,8 +15,8 @@
                         // is connected
 
 #define LED_BLUE PB0                  
-#define SHORT_DELAY 100 // Delay in milliseconds
-#define LONG_DELAY 300
+#define DOT 100 // Delay in milliseconds
+#define DASH 300
 #ifndef F_CPU
 # define F_CPU 16000000 // CPU frequency in Hz required for delay funcs
 #endif
@@ -43,34 +43,30 @@
  **********************************************************************/
 int main(void)
 {
-    uint8_t led_value = LOW;  // Local variable to keep LED status
-
-    // Set pin where on-board LED is connected as output
-    //pinMode(LED_GREEN, OUTPUT);
     pinMode(LED_BLUE, OUTPUT);
-    // Infinite loop
+ 
+ 
     while (1)
     {
-        digitalWrite(LED_BLUE, led_value);
-        _delay_ms(SHORT_DELAY);
+    
+    // show dot
+    digitalWrite(LED_BLUE, LOW);
+    _delay_ms(DOT);
 
-        if (led_value == LOW)
-            led_value = HIGH;
-        else
-            led_value = LOW;
+    
+    digitalWrite(LED_BLUE, HIGH);
+    _delay_ms(500);
 
-        digitalWrite(LED_BLUE, led_value);
-        _delay_ms(LONG_DELAY);
+    //show dash 
+    digitalWrite(LED_BLUE, LOW);
+    _delay_ms(DASH);
 
-        
+    digitalWrite(LED_BLUE, HIGH);
+    
+    // pause between letters
+    _delay_ms(700);
 
-
-
-        
-        
-        // Turn ON/OFF on-board LED
-        // digitalWrite(LED_GREEN, led_value);
-        digitalWrite(LED_BLUE, led_value);
+    
     
     }
 

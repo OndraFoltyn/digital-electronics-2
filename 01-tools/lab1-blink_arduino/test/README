@@ -1,4 +1,4 @@
-# Lab 1: YOUR_FIRSTNAME LASTNAME
+# Lab 1: Ondřej Foltyn
 
 ### Morse code
 
@@ -7,16 +7,31 @@
 ```c
 int main(void)
 {
-    // Set pin where on-board LED is connected as output
-    pinMode(LED_GREEN, OUTPUT);
-
-    // Infinite loop
+    pinMode(LED_BLUE, OUTPUT);
+ 
+ 
     while (1)
     {
-        // Generate a lettre `A` Morse code
+    
+    // show dot
+    digitalWrite(LED_BLUE, LOW);
+    _delay_ms(DOT);
 
-        // WRITE YOUR CODE HERE
+    
+    digitalWrite(LED_BLUE, HIGH);
+    _delay_ms(500);
 
+    //show dash 
+    digitalWrite(LED_BLUE, LOW);
+    _delay_ms(DASH);
+
+    digitalWrite(LED_BLUE, HIGH);
+    
+    // pause between letters
+    _delay_ms(700);
+
+    
+    
     }
 
     // Will never reach this
