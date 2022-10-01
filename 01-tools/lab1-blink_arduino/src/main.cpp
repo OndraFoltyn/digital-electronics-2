@@ -45,7 +45,6 @@ int main(void)
 {
     pinMode(LED_BLUE, OUTPUT);
  
- 
     while (1)
     {
     
@@ -53,7 +52,6 @@ int main(void)
     digitalWrite(LED_BLUE, LOW);
     _delay_ms(DOT);
 
-    
     digitalWrite(LED_BLUE, HIGH);
     _delay_ms(500);
 
