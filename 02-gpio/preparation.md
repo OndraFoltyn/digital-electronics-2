@@ -6,8 +6,8 @@
    | :-: | :-: | :-: | :-- |
    | `uint8_t`  | 8 | 0, 1, ..., 255 | Unsigned 8-bit integer |
    | `int8_t`   | 8 | -128, ..., 127 |  |
-   | `uint16_t` |  |  |  |
-   | `int16_t`  |  |  |  |
+   | `uint16_t` | 16 | 0, ..., 65 535 |  |
+   | `int16_t`  | 16 | -32 768, ... 32 768 |  |
    | `float`    |  | -3.4e+38, ..., 3.4e+38 | Single-precision floating-point |
    | `void`     |  |  |  |
 
