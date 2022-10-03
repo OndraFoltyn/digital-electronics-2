@@ -12,14 +12,14 @@ int main(void)
     while (1)
     {
     
-    // show dot
+    // show dot - DOT = 100
     digitalWrite(LED_BLUE, LOW);
     _delay_ms(DOT);
 
     digitalWrite(LED_BLUE, HIGH);
     _delay_ms(500);
 
-    //show dash 
+    //show dash - DASH = 300
     digitalWrite(LED_BLUE, LOW);
     _delay_ms(DASH);
 
