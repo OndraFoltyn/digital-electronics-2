@@ -1,6 +1,6 @@
 /***********************************************************************
  * 
- * Blink a LED in Arduino-style and use function from the delay library.
+ * Blink LEDs in Arduino-style and use function from the delay library.
  * ATmega328P (Arduino Uno), 16 MHz, PlatformIO
  *
  * Copyright (c) 2022 Tomas Fryza
@@ -11,11 +11,10 @@
 
 
 /* Defines -----------------------------------------------------------*/
-//#define LED_GREEN PB5   // PB5 is AVR pin where green on-board LED 
+#define LED_GREEN PB5   // PB5 is AVR pin where green on-board LED
                         // is connected
-
-#define LED_BLUE PB0                  
-// #define SHORT_DELAY 500 // Delay in milliseconds
+#define LED_RED PB0     // External active-low LED
+#define SHORT_DELAY 250 // Delay in milliseconds
 #ifndef F_CPU
 # define F_CPU 16000000 // CPU frequency in Hz required for delay funcs
 #endif
@@ -23,79 +22,57 @@
 /* Includes ----------------------------------------------------------*/
 #include <avr/io.h>     // AVR device-specific IO definitions
 #include <util/delay.h> // Functions for busy-wait delay loops
-
+#include <gpio.h>
 
 // -----
 // This part is needed to use Arduino functions but also physical pin
 // names. We are using Arduino-style just to simplify the first lab.
-#include "Arduino.h"
-//#define PB5 13          // In Arduino world, PB5 is called "13"
-#define PB0 8 
+
+// #include "Arduino.h"
+#define PB5 5          // In Arduino world, PB5 is called "13"
+#define PB0 0
 // -----
 
 
 /* Function definitions ----------------------------------------------*/
 /**********************************************************************
  * Function: Main function where the program execution begins
- * Purpose:  Toggle one LED and use delay library.
+ * Purpose:  Toggle LEDs and use delay library.
  * Returns:  none
  **********************************************************************/
-/* int main(void)
+int main(void)
 {
-    uint8_t led_value = LOW;  // Local variable to keep LED status
+    //uint8_t led_value = LOW;  // Local variable to keep LED status
 
     // Set pin where on-board LED is connected as output
-    pinMode(LED_GREEN, OUTPUT);
-    pinMode(LED_BLUE, OUTPUT);
+    //pinMode(LED_GREEN, OUTPUT);
+
+  GPIO_mode_output(&DDRB, LED_GREEN);
+  GPIO_mode_output(&DDRB, LED_RED);
+
+    // Set second pin as output
+    //pinMode(LED_RED, OUTPUT);
+
     // Infinite loop
     while (1)
     {
-        // Change LED value
-        if (led_value == LOW)
-            led_value = HIGH;
-        else
-            led_value = LOW;
+
+      //PORTB ^= (1<<LED_GREEN);
+      GPIO_write_high(&PORTB, LED_GREEN);
+      GPIO_write_high(&PORTB, LED_RED);
+      //PORTB ^= (1<<LED_RED);
+        
 
         // Pause several milliseconds
         _delay_ms(SHORT_DELAY);
-        // Turn ON/OFF on-board LED
-        digitalWrite(LED_GREEN, led_value);
-        digitalWrite(LED_BLUE, led_value);
-    }
 
-    // Will never reach this
-    return 0;
-}
 
-*/
-#define DOT 200
-#define DASH 800
-
-int main(void)
-{
-  uint8_t led_value = LOW;
-    // Set pin where on-board LED is connected as output
-    pinMode(LED_BLUE, OUTPUT);
-
-    // Infinite loop
-    while (1)
-    {
-        // Generate a lettre `A` Morse code
+      GPIO_write_low(&PORTB, LED_GREEN);
+      GPIO_write_low(&PORTB, LED_RED);
       
-        digitalWrite(LED_BLUE, LOW);
-        _delay_ms(DOT);
-
-        if (led_value == LOW)
-          led_value = HIGH;
-        else
-          led_value = LOW;
-          
-        digitalWrite(LED_BLUE, LOW);
-        _delay_ms(DASH);
-
+      _delay_ms(SHORT_DELAY);
       
         
-
     }
 
     // Will never reach this
