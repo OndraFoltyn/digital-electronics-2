@@ -68,8 +68,12 @@ int main(void)
 ISR(TIMER1_OVF_vect)
 {
     if (GPIO_read(&PINB, BUTTON))
+    {  
       PORTB |= (1<<LED_GREEN);
+    }
     else  
+    { 
       PORTB &= ~(1<<LED_GREEN);
+    }
     //PORTB = PORTB ^ (1<<LED_GREEN);
 }
