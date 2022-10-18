@@ -9,7 +9,7 @@
    | E | PB1 | Enable signal |
    | D[3:0] | unconnected |  |
    | D[7:4] | PD[7:4] |  |
-   | K | PB! |  |
+   | K | PB1 |  |
 
 2. What is the ASCII table? What are the codes/values for uppercase letters `A` to `Z`, lowercase letters `a` to `z`, and numbers `0` to `9` in this table?
 
