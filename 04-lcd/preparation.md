@@ -6,10 +6,10 @@
    | :-: | :-: | :-- |
    | RS | PB0 | Register selection signal. Selection between Instruction register (RS=0) and Data register (RS=1) |
    | R/W | GND | Data read/write (0 = write, 1 = read) |
-   | E | PB1 | Enable signal |
+   | E | PB1 | Enable signal (loads the data on the falling edge |
    | D[3:0] | unconnected |  |
    | D[7:4] | PD[7:4] |  |
-   | K | PB1 |  |
+   | K | PB1 | Backlight cathode |
 
 2. What is the ASCII table? What are the codes/values for uppercase letters `A` to `Z`, lowercase letters `a` to `z`, and numbers `0` to `9` in this table?
 
