@@ -82,8 +82,38 @@ int main(void)
     // Display symbol with Character code 0
     lcd_gotoxy(12,0);
     lcd_putc(0x00);
+ */
 
-    */
+    uint8_t customChar[] = {
+    // addr 0: .....
+      0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000,
+    // addr 1: |....
+      0b10000, 0b10000, 0b10000, 0b10000, 0b10000, 0b10000, 0b10000, 0b10000,
+    // addr 2: .....
+      0b11000, 0b11000, 0b11000, 0b11000, 0b11000, 0b11000, 0b11000, 0b11000,
+    // addr 3: .....
+      0b11100, 0b11100, 0b11100, 0b11100, 0b11100, 0b11100, 0b11100, 0b11100,
+    // addr 4: .....
+      0b11110, 0b11110, 0b11110, 0b11110, 0b11110, 0b11110, 0b11110, 0b11110,
+    // addr 5: .....
+      0b11111, 0b11111, 0b11111, 0b11111, 0b11111, 0b11111, 0b11111, 0b11111,
+    };
+
+    lcd_init(LCD_DISP_ON);
+    lcd_command(1<<LCD_CGRAM);
+
+    for (uint8_t i = 0; i < 8; i++)  // Copy new character patterns line by line to CGRAM
+        lcd_data(customChar[i]);
+    lcd_command(1<<LCD_DDRAM);      // Set addressing back to DDRAM (Display Data RAM)
+
+    // Display symbol with Character code 0
+    lcd_gotoxy(1,1);
+    lcd_putc(0x00);
+
+
+
+
+
   TIM2_overflow_16ms();
   TIM2_overflow_interrupt_enable();
 
@@ -168,9 +198,6 @@ ISR(TIMER2_OVF_vect)
       
       lcd_gotoxy(11,1);
       lcd_puts("c");
-      
-      lcd_gotoxy(1,1);
-      lcd_puts("b");
 
     }
     // Else do nothing and exit the ISR
@@ -178,14 +205,6 @@ ISR(TIMER2_OVF_vect)
 
 /* Variables ---------------------------------------------------------*/
 // Custom character definition using https://omerk.github.io/lcdchargen/
-uint8_t customChar[] = {
-    // addr 0: .....
-    0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000,
-    // addr 1: |....
-    0b10000, 0b10000, 0b10000, 0b10000, 0b10000, 0b10000, 0b10000, 0b10000,
-    ...
-};
-...
 /*--------------------------------------------------------------------*/
 /**
  * ISR starts when Timer/Counter0 overflows. Update the progress bar on
@@ -214,7 +233,7 @@ ISR(TIMER0_OVF_vect)
       {
         position = 0;
       }
-      
-      
-    // WRITE YOUR CODE HERE
+    
+    
+
 }
