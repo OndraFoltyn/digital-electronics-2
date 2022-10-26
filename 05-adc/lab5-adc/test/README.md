@@ -7,11 +7,11 @@
    | **Push button** | **PC0[A0] voltage** | **ADC value (calculated)** | **ADC value (measured)** | **ADC value (measured, hex)** |
    | :-: | :-: | :-: | :-: | :-: |
    | Right  | 0&nbsp;V | 0   | 0 | 0 |
-   | Up     | 0.495&nbsp;V | 101 |  |  |
-   | Down   | 1.203&nbsp;V | 246 |  |  |
-   | Left   | 1.969&nbsp;V | 402 |  |  |
-   | Select | 3.182&nbsp;V | 651 |  |  |
-   | none   | 5&nbsp;V | 1023 |  |  |
+   | Up     | 0.495&nbsp;V | 101 | 99 | 64f |
+   | Down   | 1.203&nbsp;V | 246 | 257 | 101 |
+   | Left   | 1.969&nbsp;V | 402 | 409 | 19a |
+   | Select | 3.182&nbsp;V | 651 | 641 | 281 |
+   | none   | 5&nbsp;V | 1023 | 1023 | 3ff |
 
 ### Temperature meter
 
@@ -24,19 +24,3 @@ Consider an application for temperature measurement. Use analog temperature sens
 3. Draw two flowcharts for interrupt handler `TIMER1_OVF_vect` (which overflows every 1&nbsp;sec) and `ADC_vect`. The image can be drawn on a computer or by hand. Use clear descriptions of the individual steps of the algorithms.
 
    ![your figure]()
-
-
-
-
-
-
-
-   | **Operation** | **Register(s)** | **Bit(s)** | **Description** |
-   | :-- | :-: | :-: | :-- |
-   | Voltage reference    | ADMUX | REFS1:0 | 00: ..., 01: AVcc voltage reference (5V), ... |
-   | Input channel        | ADMUX | MUX3:0 | 0000: ADC0, 0001: ADC1, ... |
-   | ADC enable           | ADCSRA | ADEN | 1 |
-   | Start conversion     | ADCSRA | ADSC | 1 |
-   | ADC interrupt enable | ADCSRA | ADIE | 1 |
-   | ADC clock prescaler  | ADCSRA | ADPS2:0 | 000: Division factor 2, 001: 2, 010: 4, ...|
-   | ADC 10-bit result    | ADCL and ADCH | - | - |   

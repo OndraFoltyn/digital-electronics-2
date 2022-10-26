@@ -44,17 +44,21 @@ int main(void)
     ADMUX &= ~(1<<REFS1); 
     
     // Select input channel ADC0 (voltage divider pin)
-
+    ADMUX &= ~((1<<MUX3) | (1<<MUX3) | (1<<MUX3) | (1<<MUX3) );
+    
     // Enable ADC module
-
+    ADCSRA |= (1<<ADEN);
+  
     // Enable conversion complete interrupt
+    ADCSRA |=(1<<ADIE);
 
     // Set clock prescaler to 128
-
+    ADCSRA |=((1<<ADPS2) | (1<<ADPS1) | (1<<ADPS0));
 
     // Configure 16-bit Timer/Counter1 to start ADC conversion
     // Set prescaler to 33 ms and enable overflow interrupt
-
+    TIM1_overflow_33ms();
+    TIM1_overflow_interrupt_enable();
 
     // Enables interrupts by setting the global interrupt mask
     sei();
@@ -79,6 +83,7 @@ int main(void)
 ISR(TIMER1_OVF_vect)
 {
     // Start ADC conversion
+    ADCSRA |=(1<<ADSC);
 }
 
 /**********************************************************************
@@ -94,4 +99,53 @@ ISR(ADC_vect)
     // Note that, register pair ADCH and ADCL can be read as a 16-bit value ADC
     value = ADC;
     // Convert "value" to "string" and display it
+    lcd_gotoxy(8, 0);
+    itoa(value, string, 10);
+    lcd_puts(string);
+
+    lcd_gotoxy(13, 0);
+    itoa(value, string, 16);
+    lcd_puts(string);
+
+    lcd_gotoxy(8,1);
+    
+    if (value<10)
+    {
+      itoa(value, string, 10);
+      lcd_puts("right");
+    }
+    
+    if ( (value>10) & (value<110) )
+    {
+      itoa(value, string, 10);
+      lcd_puts("up");
+    }
+    
+    if ((value>111) & (value<270))
+    {
+      itoa(value, string, 10);
+      lcd_puts("down");
+    }
+    
+    if ((value>280) & (value<430))
+    {
+      itoa(value, string, 10);
+      lcd_puts("left");
+    }
+    
+    if ( (value>450) & (value<650) )
+    {
+      itoa(value, string, 10);
+      lcd_puts("select");
+    }
+    
+    if ((value>700) & (value<1050))
+    {
+      itoa(value, string, 10);
+      lcd_puts("none");
+    }
+    
+
+  
+    
 }
