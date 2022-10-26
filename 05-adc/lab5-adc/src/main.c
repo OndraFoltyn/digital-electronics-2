@@ -57,7 +57,7 @@ int main(void)
 
     // Configure 16-bit Timer/Counter1 to start ADC conversion
     // Set prescaler to 33 ms and enable overflow interrupt
-    TIM1_overflow_33ms();
+    TIM1_overflow_262ms();
     TIM1_overflow_interrupt_enable();
 
     // Enables interrupts by setting the global interrupt mask
@@ -95,10 +95,16 @@ ISR(ADC_vect)
     uint16_t value;
     char string[4];  // String for converted numbers by itoa()
 
+    
     // Read converted value
     // Note that, register pair ADCH and ADCL can be read as a 16-bit value ADC
     value = ADC;
     // Convert "value" to "string" and display it
+    
+    lcd_clrscr();
+    lcd_gotoxy(1, 0); lcd_puts("value:");
+    lcd_gotoxy(3, 1); lcd_puts("key:");
+
     lcd_gotoxy(8, 0);
     itoa(value, string, 10);
     lcd_puts(string);
@@ -107,15 +113,17 @@ ISR(ADC_vect)
     itoa(value, string, 16);
     lcd_puts(string);
 
+
+     
     lcd_gotoxy(8,1);
     
     if (value<10)
-    {
+    { 
       itoa(value, string, 10);
       lcd_puts("right");
     }
     
-    if ( (value>10) & (value<110) )
+    if ((value>10) & (value<110))
     {
       itoa(value, string, 10);
       lcd_puts("up");
@@ -133,7 +141,7 @@ ISR(ADC_vect)
       lcd_puts("left");
     }
     
-    if ( (value>450) & (value<650) )
+    if ((value>450) & (value<650))
     {
       itoa(value, string, 10);
       lcd_puts("select");
