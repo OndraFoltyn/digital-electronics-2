@@ -40,7 +40,7 @@ int main(void)
     // Configure 16-bit Timer/Counter1 to transmit UART data
     // Set prescaler to 262 ms and enable overflow interrupt
     
-    TIM1_overflow_262ms();
+    TIM1_overflow_4ms();
     TIM1_overflow_interrupt_enable();
 
     // Enables interrupts by setting the global interrupt mask
@@ -55,6 +55,25 @@ int main(void)
     {
         /* Empty loop. All subsequent operations are performed exclusively 
          * inside interrupt service routines ISRs */
+        uint8_t value;
+        uint16_t timer;
+        char string[8];   
+
+        value = uart_getc();
+        
+        if (value != '\0') {     // Data available from UART
+            if (value == '1') {  // Key `1` received
+                timer = TCNT1;
+                itoa(timer, string, 10);
+                uart_puts(string);
+                uart_puts("\r\n");
+            }
+    
+            if (value == '2') { 
+                TCNT1 = 0;
+                uart_puts("Reset\r\n");                
+            }
+        }
     }
 
     // Will never reach this
@@ -68,13 +87,14 @@ int main(void)
  **********************************************************************/
 ISR(TIMER1_OVF_vect)
 {
-    uint8_t value;
-    char string[8];  // String for converted numbers by itoa()
+    //uint8_t value;
+    //char string[8];  // String for converted numbers by itoa()
 
-    value = uart_getc();
-    if (value != '\0') {  // Data available from UART
+    //value = uart_getc();
+    //if (value != '\0') {  // Data available from UART
         // Display ASCII code of received character
-        // WRITE YOUR CODE HERE
+       
+    /*
         uart_puts("Pressed key:");
         uart_putc(value);
         uart_puts("\t");
@@ -92,7 +112,18 @@ ISR(TIMER1_OVF_vect)
         uart_puts("Bin value:");
         itoa(value, string, 2);
         uart_puts(string);
-        uart_puts("\n");
+        uart_puts("\r\n");
 
-    }
+    */
+    
+    /*
+    uart_puts("\x1b[4;32m");  // 4: underline style; 32: green foreground
+    uart_puts("This is all Green and Underlined\r\n");
+    //uart_puts("\x1b[0m");     // 0: reset all attributes
+    //uart_puts("This is Normal text again\r\n");
+    */
+
+
 }
+
+    
