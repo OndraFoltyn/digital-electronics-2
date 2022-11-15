@@ -10,7 +10,7 @@
    * SPI pins - ***pins: 13, 12, 11, 10 (PB5:2)***
    * external interrupt pins INT0, INT1 - ***pins: 3, 2 (PD3:2)***
 
-   ![your figure](https://github.com/OndraFoltyn/digital-electronics-2/blob/main/07-i2c/images/arduino.png)
+   ![your figure](https://github.com/OndraFoltyn/digital-electronics-2/blob/main/07-i2c/image/arduino.png)
 
 ### I2C communication
 
