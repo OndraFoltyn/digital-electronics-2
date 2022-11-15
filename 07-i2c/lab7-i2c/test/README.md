@@ -3,7 +3,7 @@
 ### Arduino Uno pinout
 
 1. In the picture of the Arduino Uno board, mark the pins that can be used for the following functions/operations:
-   * PWM generators from Timer0, Timer1, Timer2 - *pins: 11, 10, 9, 6, 5, 3*
+   * PWM generators from Timer0, Timer1, Timer2 - ***pins: 11, 10, 9, 6, 5, 3***
    * analog channels for ADC - *A5:A0 (PC5:0)*
    * UART pins - *TX (1), RX (0) (PD1:0)*
    * I2C pins - *A5, A4 (PC5:4)*
