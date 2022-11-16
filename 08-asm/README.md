@@ -4,7 +4,7 @@
 
    | **Instruction** | **Operation** | **Description** | **Cycles** |
    | :-- | :-: | :-- | :-: |
-   | `add Rd, Rr` |  |  |  |
+   | `add Rd, Rr` | Rd ← Rd + Rr | Adds two registers without the C flag and places the result in the destination register Rd. | 1 |
    | `andi Rd, K` | Rd = Rd and K | Logical AND between register Rd and 8-bit constant K | 1 |
    | `bld Rd, b` |  |  |  |
    | `bst Rd, b` |  |  |  |
