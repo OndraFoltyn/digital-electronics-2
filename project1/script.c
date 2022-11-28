@@ -120,7 +120,6 @@ ISR(TIMER2_OVF_vect)
       }
       lcd_puts(string);
      
-
       lcd_gotoxy(10, 0);
       lcd_putc(':');
 
