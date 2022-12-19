@@ -63,6 +63,9 @@ int main(void)
   TIM2_overflow_16ms();
   TIM2_overflow_interrupt_enable();
 
+  TIM0_overflow_16ms();
+  TIM0_overflow_interrupt_enable();
+
 
     // Enables interrupts by setting the global interrupt mask
     sei();
@@ -150,18 +153,64 @@ ISR(TIMER2_OVF_vect)
  * ISR starts when Timer/Counter0 overflows. Update the progress bar on
  * LCD display every 16 ms.
  */
-
-ISR(TIMER2_OVF_vect)
+ISR(TIMER0_OVF_vect)
 {
-    static uint8_t no_of_overflows = 0;
-    static uint8_t tenths = 0;  // Tenths of a second
-    static uint8_t seconds = 0;   
-    static uint8_t minutes = 0;
+    static uint8_t no_of_overflows = 6;
+    static uint8_t tenths = 9;  // Tenths of a second
+    static uint8_t seconds = 59;
+    static uint8_t minutes = 59;
     char string[2];             // String for converted numbers by itoa()
-        /*
-    no_of_overflows++;
-    if (no_of_overflows >= 5)
 
+    no_of_overflows--;
+    if (no_of_overflows <= 6)
+    {
+        // Do this every 6 x 16 ms = 100 ms
+        no_of_overflows = 6;
+        tenths--;  
+
+        if(tenths == 0)
+        { tenths = 9;
+          seconds--;
+
+            if (seconds == 0)
+            {
+              seconds = 59;
+              minutes--;
+            }    
       
-    */
+        }
+        
+      itoa(minutes, string, 10);  // Convert decimal value to string
+      lcd_gotoxy(8, 1);
+      if (minutes < 10)
+      { 
+        lcd_putc('0');
+      }
+      lcd_puts(string);
+     
+
+      lcd_gotoxy(10, 1);
+      lcd_putc(':');
+
+      itoa(seconds, string, 10);  // Convert decimal value to string
+      lcd_gotoxy(11, 1);
+      if (seconds < 10)
+      {
+        lcd_putc('0');
+      }
+      lcd_puts(string);
+
+      lcd_gotoxy(13, 1);
+      lcd_putc('.');
+        
+      itoa(tenths, string, 10);  // Convert decimal value to string
+      lcd_gotoxy(14, 1);
+      lcd_puts(string);
+
+      lcd_gotoxy
+
+    
+    }
 }
+
+
